@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "629515310977",
+    "firebase_url": "https://nukeith-8ed5d.firebaseio.com",
+    "project_id": "nukeith-8ed5d",
+    "storage_bucket": "nukeith-8ed5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629515310977:android:95b5cef307a8b5d710ba80",
+        "android_client_info": {
+          "package_name": "com.example.live"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629515310977-9q5p681lia2mm8llkmaq46mrksb6tmuu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAfily4_2E2fiZbQBnvBUYtOvzT5nkBBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629515310977-9q5p681lia2mm8llkmaq46mrksb6tmuu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629515310977-arqsald16mrk7d90k7mnqem1s52pp0a7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.live"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

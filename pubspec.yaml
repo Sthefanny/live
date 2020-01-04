@@ -17,6 +17,9 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  font_awesome_flutter: ^8.5.0
+  carousel_slider: ^1.4.0
+  cloud_firestore: ^0.13.0+1
   google_fonts: ^0.2.0
   dio: ^3.0.7
   rxdart: ^0.23.1

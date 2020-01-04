@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:live/app/modules/home/home_module.dart';
+
+import 'common/utils/page_routes.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -12,7 +13,7 @@ class AppWidget extends StatelessWidget {
           buttonTheme: ButtonThemeData(
             buttonColor: Color(0xFF8a30ac),
           )),
-      home: HomeModule(),
+      onGenerateRoute: PageRoutes.routes,
       debugShowCheckedModeBanner: false,
     );
   }
