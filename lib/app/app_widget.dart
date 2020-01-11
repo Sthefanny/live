@@ -12,7 +12,11 @@ class AppWidget extends StatelessWidget {
           buttonColor: Color(0xFF8a30ac),
           buttonTheme: ButtonThemeData(
             buttonColor: Color(0xFF8a30ac),
-          )),
+          ),
+          textTheme: TextTheme(
+            display1: TextStyle(fontSize: 16),
+          ),
+        ),
       onGenerateRoute: PageRoutes.routes,
       debugShowCheckedModeBanner: false,
     );

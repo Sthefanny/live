@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  intl: ^0.16.1
   font_awesome_flutter: ^8.5.0
   carousel_slider: ^1.4.0
   cloud_firestore: ^0.13.0+1

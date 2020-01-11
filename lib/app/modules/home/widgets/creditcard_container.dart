@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:live/app/common/utils/colors_config.dart';
 import 'package:live/app/common/utils/draw_horizontal_line.dart';
 import 'package:live/app/common/utils/page_routes.dart';
 
 class CreditCardContainer extends StatelessWidget {
-  final Color _blueColor = Color(0xFF12aebe);
-  final Color _greenColor = Color(0xFF9cd130);
-  final Color _yellowColor = Color(0xFFfea904);
-
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
@@ -61,14 +58,14 @@ class CreditCardContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Fatura Atual'.toUpperCase(), style: GoogleFonts.openSans(textStyle: TextStyle(color: _blueColor, fontSize: 16))),
-          Text('R\$ 10.000,00', style: GoogleFonts.openSans(textStyle: TextStyle(color: _blueColor, fontSize: 40))),
+          Text('Fatura Atual'.toUpperCase(), style: GoogleFonts.openSans(textStyle: TextStyle(color: ColorsConfig.blueColor, fontSize: 16))),
+          Text('R\$ 10.000,00', style: GoogleFonts.openSans(textStyle: TextStyle(color: ColorsConfig.blueColor, fontSize: 40))),
           Row(
             children: <Widget>[
               Text('Limite disponível', style: GoogleFonts.openSans(textStyle: TextStyle(color: Colors.black, fontSize: 16))),
               Padding(
                 padding: const EdgeInsets.only(left: 5),
-                child: Text('R\$ 30.000,00', style: GoogleFonts.openSans(textStyle: TextStyle(color: _greenColor, fontSize: 16, fontWeight: FontWeight.bold))),
+                child: Text('R\$ 30.000,00', style: GoogleFonts.openSans(textStyle: TextStyle(color: ColorsConfig.greenColor, fontSize: 16, fontWeight: FontWeight.bold))),
               ),
             ],
           ),
@@ -80,9 +77,9 @@ class CreditCardContainer extends StatelessWidget {
   Widget buildVerticalLines(Size _size) {
     return Column(
       children: <Widget>[
-        CustomPaint(painter: Drawhorizontalline(color: _yellowColor, initialHeight: 0, finalHeight: _size.height * 0.02)),
-        CustomPaint(painter: Drawhorizontalline(color: _greenColor, initialHeight: _size.height * 0.1, finalHeight: _size.height * 0.3)),
-        CustomPaint(painter: Drawhorizontalline(color: _blueColor, initialHeight: _size.height * 0.02, finalHeight: _size.height * 0.1, strokeCap: StrokeCap.square)),
+        CustomPaint(painter: Drawhorizontalline(color: ColorsConfig.yellowColor, initialHeight: 0, finalHeight: _size.height * 0.02)),
+        CustomPaint(painter: Drawhorizontalline(color: ColorsConfig.greenColor, initialHeight: _size.height * 0.1, finalHeight: _size.height * 0.3)),
+        CustomPaint(painter: Drawhorizontalline(color: ColorsConfig.blueColor, initialHeight: _size.height * 0.02, finalHeight: _size.height * 0.1, strokeCap: StrokeCap.square)),
       ],
     );
   }
