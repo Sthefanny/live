@@ -1,0 +1,2 @@
+lib/app/shared/repositories/ricky_morty_repository.dart
+test/app/shared/repositories/ricky_morty_repository_test.dart
