@@ -1,6 +1,6 @@
-# patience
+# arduino_home_control
 
-Public API: http://deckofcardsapi.com/
+A new Flutter project. Created by Slidy
 
 ## Getting Started
 

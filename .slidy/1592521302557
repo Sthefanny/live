@@ -1,0 +1,10 @@
+arduino_home_control/lib/main.dart
+arduino_home_control/lib/app/app_module.dart
+arduino_home_control/lib/app/app_widget.dart
+arduino_home_control/lib/app/modules/home/home_module.dart
+arduino_home_control/lib/app/app_controller.dart
+arduino_home_control/test/app/app_controller_test.dart
+arduino_home_control/lib/app/modules/home/home_page.dart
+arduino_home_control/test/app/modules/home/home_page_test.dart
+arduino_home_control/lib/app/modules/home/home_controller.dart
+arduino_home_control/test/app/modules/home/home_controller_test.dart
