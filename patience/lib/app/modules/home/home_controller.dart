@@ -13,11 +13,42 @@ abstract class _HomeControllerBase with Store {
 
   _HomeControllerBase(this._service);
 
-  Future<DecksModel> getDecks() async {
-    return await _service.getDecks(1);
+  @observable
+  String deckId = '';
+
+  @observable
+  DecksModel deck = DecksModel();
+
+  @observable
+  List<CardsModel> tableCards = List<CardsModel>();
+
+  @observable
+  List<CardsModel> sentCards = List<CardsModel>();
+
+  @action
+  Future<bool> getDecks() async {
+    var result = await _service.getDecks(1);
+    setDeck(result);
+    setDeckId(result.deckId);
+    await drawCards();
+    return true;
   }
 
-  Future<CardsModel> drawCards(String deckId) async {
-    return await _service.drawCards(deckId, 10);
+  @action
+  setDeck(value) => deck = value;
+
+  @action
+  setDeckId(value) => deckId = value;
+
+  @action
+  Future<void> drawCards() async {
+    tableCards.add(await _service.drawCards(deckId, 1));
+    tableCards.add(await _service.drawCards(deckId, 2));
+    tableCards.add(await _service.drawCards(deckId, 3));
+    tableCards.add(await _service.drawCards(deckId, 4));
+    tableCards.add(await _service.drawCards(deckId, 5));
+    tableCards.add(await _service.drawCards(deckId, 6));
+    tableCards.add(await _service.drawCards(deckId, 7));
+    print('remaining: ${tableCards.last.remaining}');
   }
 }

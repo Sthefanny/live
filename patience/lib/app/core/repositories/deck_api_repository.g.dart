@@ -43,7 +43,7 @@ class _DeckApiRepository implements DeckApiRepository {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/$deckId}/draw/?count=$count',
+        '/$deckId/draw/?count=$count',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

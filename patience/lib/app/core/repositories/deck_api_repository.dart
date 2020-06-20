@@ -14,6 +14,6 @@ abstract class DeckApiRepository {
   @GET("/new/shuffle/?deck_count={count}")
   Future<DecksModel> getDecks(@Path() int count);
 
-  @GET("/{deckId}}/draw/?count={count}")
+  @GET("/{deckId}/draw/?count={count}")
   Future<CardsModel> drawCards(@Path() String deckId, @Path() int count);
 }
