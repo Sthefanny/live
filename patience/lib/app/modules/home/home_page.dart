@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   Future<bool> response;
+  Size _size;
 
   @override
   void initState() {
@@ -29,18 +30,27 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    _size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Color(0xFF34A249),
       body: FutureBuilder(
         future: response,
         builder: (_, AsyncSnapshot<bool> snapshot) {
-          if (!snapshot.hasData) return CircularProgressIndicator();
+          if (!snapshot.hasData) return Center(child: CircularProgressIndicator(backgroundColor: Colors.purple));
 
           return SafeArea(
             child: Container(
+              height: _size.height,
+              padding: EdgeInsets.all(10),
               child: Row(
                 children: <Widget>[
-                  buildBackCard(),
+                  Column(
+                    children: <Widget>[
+                      buildDeck(),
+                      buildShowedCards(),
+                    ],
+                  ),
                   Expanded(child: buildTableCard()),
                 ],
               ),
@@ -59,16 +69,32 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         itemCount: controller.tableCards.length,
         itemBuilder: (_, index) {
           var cards = controller.tableCards[index];
+
+          var cardsResult = List<Widget>();
+
           return Container(
-            width: 40,
-            height: 30,
+            width: 50,
+            height: 300,
             margin: EdgeInsets.symmetric(horizontal: 5),
             child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               itemCount: cards.cards.length,
               itemBuilder: (_, i) {
+                var total = cards.cards.length - 1;
                 var card = cards.cards[i];
-                return buildFrontCard(card);
+
+                if (total == i) {
+                  cardsResult.add(Positioned(top: (i * 10).toDouble(), child: buildFrontCard(card)));
+                  return Container(
+                    height: _size.height,
+                    child: Stack(
+                      children: cardsResult,
+                    ),
+                  );
+                } else {
+                  cardsResult.add(Positioned(top: (i * 10).toDouble(), child: buildBackCard()));
+                }
+                return const SizedBox();
               },
             ),
           );
@@ -113,6 +139,88 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       ),
       width: 45,
       height: 65,
+    );
+  }
+
+  Widget buildDeck() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        InkWell(
+          child: Container(
+            width: 50,
+            height: 100,
+            margin: EdgeInsets.symmetric(horizontal: 5),
+            child: Observer(
+              builder: (_) {
+                var cardsResult = List<Widget>();
+                return ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: controller.deck.cards.length,
+                  itemBuilder: (_, i) {
+                    var total = controller.deck.cards.length - 1;
+                    var top = i.toDouble();
+
+                    cardsResult.add(Positioned(top: top, child: buildBackCard()));
+
+                    if (total == i) {
+                      return Container(
+                        height: 300,
+                        child: Stack(
+                          children: cardsResult,
+                        ),
+                      );
+                    }
+
+                    return const SizedBox();
+                  },
+                );
+              },
+            ),
+          ),
+          onTap: controller.turnLastCardOfDeck,
+        ),
+      ],
+    );
+  }
+
+  Widget buildShowedCards() {
+    var cardsResult = List<Widget>();
+    return Container(
+      width: 50,
+      height: 100,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.white, width: 2),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Observer(
+        builder: (_) {
+          return ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: controller.showedItems.length,
+            itemBuilder: (_, i) {
+              var total = controller.showedItems.length - 1;
+              var card = controller.showedItems[i];
+              var top = (i * 15).toDouble();
+
+              if (cardsResult.length <= 3) {
+                cardsResult.add(Positioned(top: top, child: buildFrontCard(card)));
+              }
+
+              if (total == i) {
+                return Container(
+                  height: 300,
+                  child: Stack(
+                    children: cardsResult,
+                  ),
+                );
+              }
+
+              return const SizedBox();
+            },
+          );
+        },
+      ),
     );
   }
 }

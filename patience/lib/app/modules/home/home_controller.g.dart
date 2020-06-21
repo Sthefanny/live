@@ -27,13 +27,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$deckAtom = Atom(name: '_HomeControllerBase.deck');
 
   @override
-  DecksModel get deck {
+  CardsModel get deck {
     _$deckAtom.reportRead();
     return super.deck;
   }
 
   @override
-  set deck(DecksModel value) {
+  set deck(CardsModel value) {
     _$deckAtom.reportWrite(value, super.deck, () {
       super.deck = value;
     });
@@ -66,6 +66,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
   set sentCards(List<CardsModel> value) {
     _$sentCardsAtom.reportWrite(value, super.sentCards, () {
       super.sentCards = value;
+    });
+  }
+
+  final _$showedItemsAtom = Atom(name: '_HomeControllerBase.showedItems');
+
+  @override
+  List<CardModel> get showedItems {
+    _$showedItemsAtom.reportRead();
+    return super.showedItems;
+  }
+
+  @override
+  set showedItems(List<CardModel> value) {
+    _$showedItemsAtom.reportWrite(value, super.showedItems, () {
+      super.showedItems = value;
     });
   }
 
@@ -109,12 +124,35 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  void turnLastCardOfDeck() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.turnLastCardOfDeck');
+    try {
+      return super.turnLastCardOfDeck();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void flipItem(CardModel value) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.flipItem');
+    try {
+      return super.flipItem(value);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 deckId: ${deckId},
 deck: ${deck},
 tableCards: ${tableCards},
-sentCards: ${sentCards}
+sentCards: ${sentCards},
+showedItems: ${showedItems}
     ''';
   }
 }

@@ -21,8 +21,9 @@ class CardModel {
   String value;
   String suit;
   String code;
+  bool turned;
 
-  CardModel({this.image, this.value, this.suit, this.code});
+  CardModel({this.image, this.value, this.suit, this.code, this.turned});
 
   factory CardModel.fromJson(Map<String, dynamic> json) => _$CardModelFromJson(json);
   Map<String, dynamic> toJson() => _$CardModelToJson(this);

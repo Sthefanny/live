@@ -1,7 +1,6 @@
 import 'package:mobx/mobx.dart';
 
 import '../../core/models/cards_model.dart';
-import '../../core/models/decks_model.dart';
 import '../../core/services/deck_service.dart';
 
 part 'home_controller.g.dart';
@@ -17,7 +16,7 @@ abstract class _HomeControllerBase with Store {
   String deckId = '';
 
   @observable
-  DecksModel deck = DecksModel();
+  CardsModel deck;
 
   @observable
   List<CardsModel> tableCards = List<CardsModel>();
@@ -25,10 +24,14 @@ abstract class _HomeControllerBase with Store {
   @observable
   List<CardsModel> sentCards = List<CardsModel>();
 
+  @observable
+  List<CardModel> showedItems = List<CardModel>();
+
+  final int numberShowed = 3;
+
   @action
   Future<bool> getDecks() async {
     var result = await _service.getDecks(1);
-    setDeck(result);
     setDeckId(result.deckId);
     await drawCards();
     return true;
@@ -50,5 +53,22 @@ abstract class _HomeControllerBase with Store {
     tableCards.add(await _service.drawCards(deckId, 6));
     tableCards.add(await _service.drawCards(deckId, 7));
     print('remaining: ${tableCards.last.remaining}');
+
+    deck = setDeck(await _service.drawCards(deckId, tableCards.last.remaining));
+  }
+
+  @action
+  void turnLastCardOfDeck() {
+    var item = deck.cards.lastWhere((element) => element?.turned != true);
+    item.turned = true;
+    setDeck(deck);
+    flipItem(item);
+  }
+
+  @action
+  void flipItem(CardModel value) {
+    showedItems.add(value);
+    showedItems = showedItems;
+    deck.cards.removeLast();
   }
 }

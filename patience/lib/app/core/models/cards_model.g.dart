@@ -32,6 +32,7 @@ CardModel _$CardModelFromJson(Map<String, dynamic> json) {
     value: json['value'] as String,
     suit: json['suit'] as String,
     code: json['code'] as String,
+    turned: json['turned'] as bool,
   );
 }
 
@@ -40,4 +41,5 @@ Map<String, dynamic> _$CardModelToJson(CardModel instance) => <String, dynamic>{
       'value': instance.value,
       'suit': instance.suit,
       'code': instance.code,
+      'turned': instance.turned,
     };
