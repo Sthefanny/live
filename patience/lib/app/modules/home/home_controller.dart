@@ -16,7 +16,7 @@ abstract class _HomeControllerBase with Store {
   String deckId = '';
 
   @observable
-  CardsModel deck;
+  List<CardModel> deck;
 
   @observable
   List<CardsModel> tableCards = List<CardsModel>();
@@ -54,21 +54,31 @@ abstract class _HomeControllerBase with Store {
     tableCards.add(await _service.drawCards(deckId, 7));
     print('remaining: ${tableCards.last.remaining}');
 
-    deck = setDeck(await _service.drawCards(deckId, tableCards.last.remaining));
+    var newDeck = await _service.drawCards(deckId, tableCards.last.remaining);
+    setDeck(newDeck.cards);
   }
 
   @action
   void turnLastCardOfDeck() {
-    var item = deck.cards.lastWhere((element) => element?.turned != true);
-    item.turned = true;
-    setDeck(deck);
-    flipItem(item);
+    if (deck.isNotEmpty) {
+      var item = deck.lastWhere((element) => element?.turned != true, orElse: () => null);
+      item?.turned = true;
+      setDeck(deck);
+      flipItem(item);
+    }
   }
 
   @action
   void flipItem(CardModel value) {
     showedItems.add(value);
     showedItems = showedItems;
-    deck.cards.removeLast();
+    deck.removeLast();
+  }
+
+  @action
+  void reloadDeck() {
+    showedItems.forEach((element) => element.turned = false);
+    setDeck(showedItems);
+    showedItems = List<CardModel>();
   }
 }

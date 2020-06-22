@@ -27,13 +27,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$deckAtom = Atom(name: '_HomeControllerBase.deck');
 
   @override
-  CardsModel get deck {
+  List<CardModel> get deck {
     _$deckAtom.reportRead();
     return super.deck;
   }
 
   @override
-  set deck(CardsModel value) {
+  set deck(List<CardModel> value) {
     _$deckAtom.reportWrite(value, super.deck, () {
       super.deck = value;
     });
@@ -140,6 +140,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
         name: '_HomeControllerBase.flipItem');
     try {
       return super.flipItem(value);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void reloadDeck() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.reloadDeck');
+    try {
+      return super.reloadDeck();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }

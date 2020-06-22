@@ -143,44 +143,54 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   }
 
   Widget buildDeck() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        InkWell(
-          child: Container(
-            width: 50,
-            height: 100,
-            margin: EdgeInsets.symmetric(horizontal: 5),
-            child: Observer(
-              builder: (_) {
-                var cardsResult = List<Widget>();
-                return ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: controller.deck.cards.length,
-                  itemBuilder: (_, i) {
-                    var total = controller.deck.cards.length - 1;
-                    var top = i.toDouble();
+    return Flexible(
+      flex: 1,
+      child: InkWell(
+        child: Observer(
+          builder: (_) {
+            var cardsResult = List<Widget>();
+            if (controller.deck.length == 0) {
+              return buildReloadDeck();
+            }
+            return Container(
+              width: 45,
+              height: 100,
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: controller.deck.length,
+                itemBuilder: (_, i) {
+                  var total = controller.deck.length - 1;
+                  var card = controller.deck[i];
+                  var top = i.toDouble();
 
-                    cardsResult.add(Positioned(top: top, child: buildBackCard()));
+                  cardsResult.add(
+                    Visibility(
+                      visible: card?.turned == true ? false : true,
+                      child: Positioned(
+                        top: top,
+                        child: buildBackCard(),
+                      ),
+                    ),
+                  );
 
-                    if (total == i) {
-                      return Container(
-                        height: 300,
-                        child: Stack(
-                          children: cardsResult,
-                        ),
-                      );
-                    }
+                  if (total == i) {
+                    return Container(
+                      height: 300,
+                      child: Stack(
+                        children: cardsResult,
+                      ),
+                    );
+                  }
 
-                    return const SizedBox();
-                  },
-                );
-              },
-            ),
-          ),
-          onTap: controller.turnLastCardOfDeck,
+                  return const SizedBox();
+                },
+              ),
+            );
+          },
         ),
-      ],
+        onTap: controller.turnLastCardOfDeck,
+      ),
     );
   }
 
@@ -189,10 +199,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     return Container(
       width: 50,
       height: 100,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.white, width: 2),
-        borderRadius: BorderRadius.circular(5),
-      ),
       child: Observer(
         builder: (_) {
           return ListView.builder(
@@ -201,11 +207,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             itemBuilder: (_, i) {
               var total = controller.showedItems.length - 1;
               var card = controller.showedItems[i];
-              var top = (i * 15).toDouble();
+              var top = i.toDouble();
 
-              if (cardsResult.length <= 3) {
-                cardsResult.add(Positioned(top: top, child: buildFrontCard(card)));
-              }
+              cardsResult.add(
+                Positioned(
+                  top: top,
+                  child: buildFrontCard(card),
+                ),
+              );
 
               if (total == i) {
                 return Container(
@@ -220,6 +229,28 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             },
           );
         },
+      ),
+    );
+  }
+
+  Widget buildReloadDeck() {
+    return Container(
+      width: 45,
+      height: 65,
+      child: InkWell(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 2),
+            borderRadius: BorderRadius.circular(5),
+            color: Colors.purple,
+          ),
+          child: Center(
+            child: Center(
+              child: Icon(Icons.refresh, color: Colors.white, size: 35),
+            ),
+          ),
+        ),
+        onTap: controller.reloadDeck,
       ),
     );
   }
