@@ -10,7 +10,7 @@ class _MainTitleWidgetState extends State<MainTitleWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,15 +35,15 @@ class _MainTitleWidgetState extends State<MainTitleWidget> {
   Widget buildIcon() {
     return FaIcon(
       FontAwesomeIcons.globeAmericas,
-      size: 40,
+      size: 80,
     );
   }
 
   Widget buildTitle() {
-    return Text('Sthefanny Gonzaga', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500));
+    return Text('Sthefanny Gonzaga', style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500));
   }
 
   Widget buildSubTitle() {
-    return Text('Flutter Developer', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500));
+    return Text('Flutter Developer', style: TextStyle(fontSize: 36, fontWeight: FontWeight.w400));
   }
 }
