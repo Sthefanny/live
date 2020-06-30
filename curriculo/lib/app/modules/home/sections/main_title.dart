@@ -1,12 +1,15 @@
+import 'package:curriculo/app/modules/home/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class MainTitleWidget extends StatefulWidget {
   @override
   _MainTitleWidgetState createState() => _MainTitleWidgetState();
 }
 
-class _MainTitleWidgetState extends State<MainTitleWidget> {
+class _MainTitleWidgetState extends ModularState<MainTitleWidget, HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,10 +43,14 @@ class _MainTitleWidgetState extends State<MainTitleWidget> {
   }
 
   Widget buildTitle() {
-    return Text('Sthefanny Gonzaga', style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500));
+    return Observer(builder: (_) {
+      return Text(controller.cvModel?.mainTitle?.name ?? '', style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500));
+    });
   }
 
   Widget buildSubTitle() {
-    return Text('Flutter Developer', style: TextStyle(fontSize: 36, fontWeight: FontWeight.w400));
+    return Observer(builder: (_) {
+      return Text(controller.cvModel?.mainTitle?.title ?? '', style: TextStyle(fontSize: 36, fontWeight: FontWeight.w400));
+    });
   }
 }

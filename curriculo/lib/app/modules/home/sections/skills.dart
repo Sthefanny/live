@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../home_controller.dart';
+import '../models/cv_model.dart';
 import '../widgets/skill_item.dart';
 import '../widgets/title.dart';
 
@@ -9,50 +13,39 @@ class SkillsWidget extends StatefulWidget {
   _SkillsWidgetState createState() => _SkillsWidgetState();
 }
 
-class _SkillsWidgetState extends State<SkillsWidget> {
+class _SkillsWidgetState extends ModularState<SkillsWidget, HomeController> {
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TitleWidget(
-          icon: FontAwesomeIcons.puzzlePiece,
-          title: 'Habilidades',
-        ),
+        Observer(builder: (_) {
+          return TitleWidget(
+            icon: FontAwesomeIcons.puzzlePiece,
+            title: controller.cvModel?.skills?.sectionTitle ?? '',
+          );
+        }),
         buildListItems()
       ],
     );
   }
 
   Widget buildListItems() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: getListItems(),
-    );
+    return Observer(builder: (_) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: getListItems(controller.cvModel?.skills?.skillsData),
+      );
+    });
   }
 
-  List<Widget> getListItems() {
-    var items = [
-      {'skill': 'Flutter', 'level': 4, 'total': 5},
-      {'skill': 'Dart', 'level': 4, 'total': 5},
-      {'skill': 'Javascript', 'level': 4, 'total': 5},
-      {'skill': 'C#', 'level': 4, 'total': 5},
-      {'skill': '.Net', 'level': 4, 'total': 5},
-      {'skill': 'Web Api', 'level': 4, 'total': 5},
-      {'skill': 'AngularJS', 'level': 4, 'total': 5},
-      {'skill': 'Typescript', 'level': 4, 'total': 5},
-      {'skill': 'CSS', 'level': 4, 'total': 5},
-      {'skill': 'SQL Server', 'level': 3, 'total': 5},
-      {'skill': 'ReactJS', 'level': 1, 'total': 5},
-      {'skill': 'ReactNative', 'level': 2, 'total': 5},
-    ];
-
+  List<Widget> getListItems(List<SkillsData> skills) {
     var listItems = List<Widget>();
-    items.forEach((item) {
+    skills?.forEach((item) {
       listItems.add(SkillItem(
-        title: item['skill'],
-        level: item['level'],
-        total: item['total'],
+        title: item.skill ?? '',
+        level: item.level ?? '',
+        total: item.total ?? '',
       ));
     });
 

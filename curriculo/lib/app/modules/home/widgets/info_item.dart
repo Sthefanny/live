@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InfoItemWidget extends StatelessWidget {
   final String title;
@@ -10,7 +11,7 @@ class InfoItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -34,7 +35,16 @@ class InfoItemWidget extends StatelessWidget {
         content,
         style: TextStyle(fontSize: 16, color: isLink ? Colors.purple : Colors.black),
       ),
-      onTap: () {},
+      onTap: isLink ? _launchURL : () {},
     );
+  }
+
+  _launchURL() async {
+    var url = 'http://$content';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  url_launcher: ^5.4.11
   font_awesome_flutter: ^8.8.1
   dio: ^3.0.9
   flutter_mobx: ^1.1.0+1
@@ -29,6 +30,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/language/
 
 vars: 
     clean: flutter clean

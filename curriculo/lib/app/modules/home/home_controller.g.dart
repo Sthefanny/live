@@ -9,30 +9,52 @@ part of 'home_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
-  final _$valueAtom = Atom(name: '_HomeControllerBase.value');
+  final _$languageAtom = Atom(name: '_HomeControllerBase.language');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  String get language {
+    _$languageAtom.reportRead();
+    return super.language;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set language(String value) {
+    _$languageAtom.reportWrite(value, super.language, () {
+      super.language = value;
     });
+  }
+
+  final _$cvModelAtom = Atom(name: '_HomeControllerBase.cvModel');
+
+  @override
+  CvModel get cvModel {
+    _$cvModelAtom.reportRead();
+    return super.cvModel;
+  }
+
+  @override
+  set cvModel(CvModel value) {
+    _$cvModelAtom.reportWrite(value, super.cvModel, () {
+      super.cvModel = value;
+    });
+  }
+
+  final _$getCvModelAsyncAction = AsyncAction('_HomeControllerBase.getCvModel');
+
+  @override
+  Future<void> getCvModel() {
+    return _$getCvModelAsyncAction.run(() => super.getCvModel());
   }
 
   final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase');
 
   @override
-  void increment() {
+  void changeLanguage(String value) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.increment');
+        name: '_HomeControllerBase.changeLanguage');
     try {
-      return super.increment();
+      return super.changeLanguage(value);
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -41,7 +63,8 @@ mixin _$HomeController on _HomeControllerBase, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+language: ${language},
+cvModel: ${cvModel}
     ''';
   }
 }

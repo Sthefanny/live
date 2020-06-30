@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../home_controller.dart';
+import '../models/cv_model.dart';
 import '../widgets/skill_item.dart';
 import '../widgets/title.dart';
 
@@ -9,40 +13,39 @@ class LanguagesWidget extends StatefulWidget {
   _LanguagesWidgetState createState() => _LanguagesWidgetState();
 }
 
-class _LanguagesWidgetState extends State<LanguagesWidget> {
+class _LanguagesWidgetState extends ModularState<LanguagesWidget, HomeController> {
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TitleWidget(
-          icon: FontAwesomeIcons.solidFlag,
-          title: 'Idiomas',
-        ),
+        Observer(builder: (_) {
+          return TitleWidget(
+            icon: FontAwesomeIcons.solidFlag,
+            title: controller.cvModel?.languages?.sectionTitle ?? '',
+          );
+        }),
         buildListItems()
       ],
     );
   }
 
   Widget buildListItems() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: getListItems(),
-    );
+    return Observer(builder: (_) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: getListItems(controller.cvModel.languages.languagesData),
+      );
+    });
   }
 
-  List<Widget> getListItems() {
-    var items = [
-      {'language': 'Português', 'level': 5, 'total': 5},
-      {'language': 'Inglês', 'level': 4, 'total': 5},
-    ];
-
+  List<Widget> getListItems(List<LanguagesData> items) {
     var listItems = List<Widget>();
-    items.forEach((item) {
+    items?.forEach((item) {
       listItems.add(SkillItem(
-        title: item['language'],
-        level: item['level'],
-        total: item['total'],
+        title: item.language ?? '',
+        level: item.level ?? '',
+        total: item.total ?? '',
       ));
     });
 

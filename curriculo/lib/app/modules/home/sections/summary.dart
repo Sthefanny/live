@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../home_controller.dart';
 import '../widgets/title.dart';
 
 class SummaryWidget extends StatefulWidget {
@@ -8,7 +11,7 @@ class SummaryWidget extends StatefulWidget {
   _SummaryWidgetState createState() => _SummaryWidgetState();
 }
 
-class _SummaryWidgetState extends State<SummaryWidget> {
+class _SummaryWidgetState extends ModularState<SummaryWidget, HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +19,9 @@ class _SummaryWidgetState extends State<SummaryWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          TitleWidget(title: 'Resumo', icon: FontAwesomeIcons.bullseye, hasMargin: false),
+          Observer(builder: (_) {
+            return TitleWidget(title: controller.cvModel?.summary?.sectionTitle ?? '', icon: FontAwesomeIcons.bullseye, hasMargin: false);
+          }),
           buildContent(),
         ],
       ),
@@ -47,9 +52,6 @@ class _SummaryWidgetState extends State<SummaryWidget> {
   }
 
   Widget buildText() {
-    var text =
-        'Sou uma desenvolvedora full stack com conhecimento em algumas linguagens de front-end e back-end, frameworks responsivos e melhores práticas de códigos. Atualmente, meu foco principal é o desenvolvimento com Flutter, já estou trabalhando com essa tecnologia há 7 meses, com 2 aplicativos publicados pela empresa em que estou trabalhando.';
-
     return Container(
       margin: EdgeInsets.only(left: 16),
       padding: EdgeInsets.only(bottom: 20),
@@ -58,7 +60,9 @@ class _SummaryWidgetState extends State<SummaryWidget> {
       ),
       child: Padding(
         padding: EdgeInsets.only(left: 25, top: 10),
-        child: Text(text),
+        child: Observer(builder: (_) {
+          return Text(controller.cvModel?.summary?.description ?? '');
+        }),
       ),
     );
   }
