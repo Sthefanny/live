@@ -1,7 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/services.dart';
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../common/configs/url_config.dart';
 import '../../common/models/pokemons_model.dart';
 
 part 'home_controller.g.dart';
@@ -9,14 +11,22 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  Future<String> _loadFromAsset() async {
-    return await rootBundle.loadString("assets/json/pokemon.json");
-  }
+  final Dio _client;
+
+  _HomeControllerBase(this._client);
+
+  @observable
+  Pokemons pokemonList = Pokemons();
 
   @action
-  Future<Pokemons> getPokemon() async {
-    String jsonString = await _loadFromAsset();
-    var model = Pokemons.fromJson(jsonDecode(jsonString));
-    return model;
+  Future<void> getPokemon() async {
+    try {
+      var result = await _client.get(UrlConfig.pokedexUrl);
+      if (result.statusCode == 200) {
+        pokemonList = Pokemons.fromJson(jsonDecode(result.data));
+      }
+    } catch (e) {
+      print('erro: $e');
+    }
   }
 }
