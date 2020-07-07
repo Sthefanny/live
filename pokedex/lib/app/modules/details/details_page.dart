@@ -1,57 +1,112 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../common/models/pokemons_model.dart';
 import '../../common/utils/pokemon_utils.dart';
 import 'details_controller.dart';
+import 'widgets/details_top.dart';
 
 class DetailsPage extends StatefulWidget {
-  final String num;
+  final Pokemon pokemon;
   final String title;
-  const DetailsPage({Key key, this.title = "Details", this.num}) : super(key: key);
+  const DetailsPage({Key key, this.title = "Details", this.pokemon}) : super(key: key);
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
 }
 
 class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
-  @override
-  void initState() {
-    super.initState();
-    controller.getPokemon(widget.num);
-  }
+  Size _size;
+  Color _typeColor;
 
   @override
   Widget build(BuildContext context) {
+    _size = MediaQuery.of(context).size;
+
+    _typeColor = PokemonUtils.getTypeColor(widget.pokemon.type.first);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFFdbd4fd),
-        title: Text(
-          widget.title,
-          style: TextStyle(color: Color(0xFF6349a0)),
+      backgroundColor: _typeColor.withOpacity(.8),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            DetailsTopWidget(num: widget.pokemon.num, name: widget.pokemon.name, types: widget.pokemon.type),
+            buildCard(),
+          ],
         ),
       ),
-      body: Observer(
-        builder: (_) {
-          if (controller.pokemon == null) {
-            return Center(child: CircularProgressIndicator());
-          }
-          return Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.network(
-                    PokemonUtils.getPokemonImage(widget.num),
-                    width: 100,
-                    height: 100,
-                  ),
-                ],
-              ),
-            ],
-          );
-        },
+    );
+  }
+
+  Widget buildCard() {
+    return Container(
+      width: _size.width,
+      height: _size.height * 0.6,
+      padding: EdgeInsets.all(30),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+      ),
+      child: buildContent(),
+    );
+  }
+
+  Widget buildContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Text('Pokédex Data', style: TextStyle(color: _typeColor, fontWeight: FontWeight.bold, fontSize: 20)),
+        ),
+        buildInfo(title: 'Weight: ', description: widget.pokemon.weight),
+        buildInfo(title: 'Height: ', description: widget.pokemon.height),
+        buildWeakness(),
+      ],
+    );
+  }
+
+  Widget buildInfo({String title, String description}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: <Widget>[
+          Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(description),
+        ],
       ),
     );
+  }
+
+  Widget buildWeakness() {
+    return Row(
+      children: <Widget>[
+        Text('Weaknesses: ', style: TextStyle(fontWeight: FontWeight.bold)),
+        Row(
+          children: getAllWeakness(),
+        ),
+      ],
+    );
+  }
+
+  Widget buildIcon(String type) {
+    return Container(
+      width: 30,
+      height: 30,
+      margin: EdgeInsets.symmetric(horizontal: 2),
+      child: CircleAvatar(
+        backgroundColor: PokemonUtils.getTypeColor(type),
+        child: SvgPicture.asset('assets/images/${type.toLowerCase()}.svg', width: 20, height: 20, color: Colors.white),
+      ),
+    );
+  }
+
+  List<Widget> getAllWeakness() {
+    var weaknessList = List<Widget>();
+    widget.pokemon.weaknesses.forEach((weakness) {
+      weaknessList.add(buildIcon(weakness));
+    });
+    return weaknessList;
   }
 }

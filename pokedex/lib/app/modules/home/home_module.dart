@@ -9,13 +9,13 @@ class HomeModule extends ChildModule {
   @override
   List<Bind> get binds => [
         Bind((i) => HomeController(i())),
-        Bind((i) => DetailsController(i())),
+        Bind((i) => DetailsController()),
       ];
 
   @override
   List<Router> get routers => [
         Router(Modular.initialRoute, child: (_, args) => HomePage()),
-        Router('/details/:num', child: (_, args) => DetailsPage(num: args.params['num'])),
+        Router('/details', child: (_, args) => DetailsPage(pokemon: args.data['pokemon'])),
       ];
 
   static Inject get to => Inject<HomeModule>.of();

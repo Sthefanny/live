@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../common/models/pokemons_model.dart';
 import '../../common/utils/pokemon_utils.dart';
+import '../../common/widgets/pokemon_description_widget.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -70,105 +71,32 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   }
 
   Widget buildPokemonCard(Pokemon pokemon) {
-    var cardColor = getTypeColor(pokemon.type.first);
-    return Container(
-      height: 120,
-      margin: EdgeInsets.only(bottom: 5, top: 10, left: 20, right: 20),
-      child: Stack(
-        children: <Widget>[
-          InkWell(
-            child: Card(
+    var cardColor = PokemonUtils.getTypeColor(pokemon.type.first);
+    return InkWell(
+      child: Container(
+        height: 120,
+        margin: EdgeInsets.only(bottom: 5, top: 10, left: 20, right: 20),
+        child: Stack(
+          children: <Widget>[
+            Card(
               color: cardColor.withOpacity(.8),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    buildNames(pokemon),
+                    PokemonDescriptionWidget(num: pokemon.num, name: pokemon.name, types: pokemon.type),
                   ],
                 ),
               ),
             ),
-            onTap: () => Modular.link.pushNamed('/details/${pokemon.num}'),
-          ),
-          buildPokeballImage(),
-          buildImage(pokemon.num),
-        ],
-      ),
-    );
-  }
-
-  Widget buildNames(Pokemon pokemon) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildNumber(pokemon.num),
-        buildName(pokemon.name),
-        buildTypes(pokemon.type),
-      ],
-    );
-  }
-
-  Widget buildNumber(String number) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 5, top: 5),
-      child: Text(
-        '#$number',
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: Color(0xFF484053),
+            buildPokeballImage(),
+            buildImage(pokemon.num),
+          ],
         ),
       ),
+      onTap: () => Modular.link.pushNamed('/details', arguments: {'pokemon': pokemon}),
     );
-  }
-
-  Widget buildName(String name) {
-    return Text(
-      '$name',
-      style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 22,
-        shadows: [
-          Shadow(
-            color: Colors.grey,
-            blurRadius: 1,
-            offset: Offset(0.0, 1.0),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildTypes(List<String> types) {
-    return Row(
-      children: getTypes(types),
-    );
-  }
-
-  List<Widget> getTypes(List<String> types) {
-    var typeList = List<Widget>();
-    types.forEach(
-      (type) {
-        var typeColor = getTypeColor(type);
-        typeList.add(
-          Padding(
-            padding: const EdgeInsets.only(right: 5),
-            child: Chip(
-              padding: EdgeInsets.all(0),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-              backgroundColor: typeColor,
-              elevation: 2,
-              label: Text(type, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
-            ),
-          ),
-        );
-      },
-    );
-
-    return typeList;
   }
 
   Widget buildImage(String num) {
@@ -177,10 +105,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     var _position = _size.width - _pokemonSize - _marginRight;
     return Transform.translate(
       offset: Offset(_position, -10.0),
-      child: Image.network(
-        PokemonUtils.getPokemonImage(num),
-        width: _pokemonSize,
-        height: _pokemonSize,
+      child: Hero(
+        tag: num,
+        child: Image.network(
+          PokemonUtils.getPokemonImage(num),
+          width: _pokemonSize,
+          height: _pokemonSize,
+        ),
       ),
     );
   }
@@ -200,46 +131,5 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         ),
       ),
     );
-  }
-
-  Color getTypeColor(String type) {
-    switch (type) {
-      case 'Normal':
-        return Color(0xFFbabb96);
-      case 'Fire':
-        return Color(0xFFf19c65);
-      case 'Fighting':
-        return Color(0xFFca6260);
-      case 'Water':
-        return Color(0xFF8ca5f2);
-      case 'Flying':
-        return Color(0xFFb9a5f2);
-      case 'Grass':
-        return Color(0xFFA7DB8D);
-      case 'Poison':
-        return Color(0xFFb26bb4);
-      case 'Electric':
-        return Color(0xFFf8db65);
-      case 'Ground':
-        return Color(0xFFe6cd8c);
-      case 'Psychic':
-        return Color(0xFFf67ba3);
-      case 'Rock':
-        return Color(0xFFc6b56b);
-      case 'Ice':
-        return Color(0xFFafe1e0);
-      case 'Bug':
-        return Color(0xFFbac95b);
-      case 'Ghost':
-        return Color(0xFF917eae);
-      case 'Dark':
-        return Color(0xFF918074);
-      case 'Steel':
-        return Color(0xFFc7c6d9);
-      case 'Fairy':
-        return Color(0xFFf0adbe);
-      default:
-        return Color(0xFF7f8992);
-    }
   }
 }
