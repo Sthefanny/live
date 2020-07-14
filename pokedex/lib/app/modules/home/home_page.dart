@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pokedex/app/common/configs/color_config.dart';
 
 import '../../common/models/pokemons_model.dart';
 import '../../common/utils/pokemon_utils.dart';
@@ -29,7 +31,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     _size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Color(0xFFdbd4fd),
+      backgroundColor: ColorConfig.bgColor,
       body: Observer(
         builder: (_) {
           if (controller.pokemonList == null || controller.pokemonList?.pokemon == null) {
@@ -45,11 +47,20 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.asset('assets/images/pokemons.jpg'),
               ),
-              backgroundColor: Color(0xFFdbd4fd),
+              backgroundColor: ColorConfig.bgColor,
               title: Text(
                 widget.title,
-                style: TextStyle(color: Color(0xFF6349a0)),
+                style: TextStyle(color: ColorConfig.mainColor),
               ),
+              actions: <Widget>[
+                InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: FaIcon(FontAwesomeIcons.qrcode, color: ColorConfig.mainColor),
+                  ),
+                  onTap: () => Modular.link.pushNamed('qr_code'),
+                ),
+              ],
             ),
             buildPokemonList(pokemons),
           ]);

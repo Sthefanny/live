@@ -8,6 +8,8 @@ environment:
   sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
+  font_awesome_flutter: ^8.8.1
+  qr_code_scanner: ^0.0.13
   flutter_svg: ^0.17.4
   json_serializable: ^3.3.0
   dio: ^3.0.9

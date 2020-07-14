@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,6 +20,12 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
   Size _size;
   Color _typeColor;
+
+  @override
+  void initState() {
+    super.initState();
+    controller.getPokemonDetails(widget.pokemon.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +63,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        buildDescription(),
         Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: Text('Pokédex Data', style: TextStyle(color: _typeColor, fontWeight: FontWeight.bold, fontSize: 20)),
@@ -64,6 +72,20 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
         buildInfo(title: 'Height: ', description: widget.pokemon.height),
         buildWeakness(),
       ],
+    );
+  }
+
+  Widget buildDescription() {
+    return Observer(
+      builder: (_) {
+        if (controller.pokemonDetail == null || controller.pokemonDetail.flavorTextEntries == null) return const SizedBox();
+        var textEntry = controller.pokemonDetail.flavorTextEntries.firstWhere((element) => element.language.name == 'en');
+        var description = textEntry.flavorText.replaceAll('\n', '');
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Text(description ?? ''),
+        );
+      },
     );
   }
 
