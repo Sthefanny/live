@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "647874462088",
+    "firebase_url": "https://stelegram-1d906.firebaseio.com",
+    "project_id": "stelegram-1d906",
+    "storage_bucket": "stelegram-1d906.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647874462088:android:e3d914702fb566bf987a3d",
+        "android_client_info": {
+          "package_name": "com.example.stelegram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647874462088-pitleo88slm2q89776acs00p3hkq492h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeJvvl-TaUzbdUggetDkwSoC6ypR6Pwg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647874462088-pitleo88slm2q89776acs00p3hkq492h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
