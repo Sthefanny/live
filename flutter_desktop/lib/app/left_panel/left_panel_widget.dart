@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/app/home/home_controller.dart';
+import 'package:flutter_desktop/common/models/folder_model.dart';
 
 class LeftPanelWidget extends StatefulWidget {
   @override
@@ -7,6 +9,20 @@ class LeftPanelWidget extends StatefulWidget {
 
 class _LeftPanelWidgetState extends State<LeftPanelWidget> {
   Size _size;
+  final HomeController _controller = HomeController();
+  Future<List<FolderModel>> _folderList;
+
+  @override
+  void initState() {
+    super.initState();
+    updateFolderList();
+  }
+
+  void updateFolderList() {
+    setState(() {
+      _folderList = _controller.getFolderList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,22 +58,41 @@ class _LeftPanelWidgetState extends State<LeftPanelWidget> {
   Widget buildFolderList() {
     return Expanded(
       child: Container(
-        child: Text('List'),
+        child: FutureBuilder(
+          future: _folderList,
+          builder: (_, AsyncSnapshot<List<FolderModel>> snapshot) {
+            if (!snapshot.hasData) return const SizedBox();
+
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (_, i) {
+                var _item = snapshot.data[i];
+                return Text(_item.name ?? '');
+              },
+            );
+          },
+        ),
       ),
     );
   }
 
   Widget buildBottom() {
-    return Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 5),
-          child: Icon(Icons.add_circle, size: 20),
-        ),
-        Expanded(
-          child: Text('New Folder'),
-        ),
-      ],
+    return InkWell(
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Icon(Icons.add_circle, size: 20),
+          ),
+          Expanded(
+            child: Text('New Folder'),
+          ),
+        ],
+      ),
+      onTap: () async {
+        await _controller.createFolder(name: 'teste');
+        updateFolderList();
+      },
     );
   }
 }

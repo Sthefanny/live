@@ -5,17 +5,24 @@
     },
     "summary": {
         "sectionTitle": "Resumo",
-        "description": "Sou uma desenvolvedora full stack com conhecimento em algumas linguagens de front-end e back-end, frameworks responsivos e melhores práticas de códigos. Atualmente, meu foco principal é o desenvolvimento com Flutter, já estou trabalhando com essa tecnologia há 7 meses, com 2 aplicativos publicados pela empresa em que estou trabalhando."
+        "description": "Sou uma desenvolvedora full stack com mais de 10 anos de experiência. Possuo conhecimento em algumas linguagens de front-end e back-end, frameworks responsivos e melhores práticas de códigos. Atualmente, meu foco principal é o desenvolvimento com Flutter."
     },
     "experiences": {
         "sectionTitle": "Últimas experiências",
         "experiencesData": [
             {
                 "title": "Desenvolvedora Flutter",
+                "company": "LAR.app",
+                "description": "Responsável pela arquitetura e desenvolvimento do app, utilizando slidy, Flutter_Modular, MobX. Fiz também uma integração com a SDK do Zendesk com código nativo para implementação de um chat em tempo real no app.",
+                "initialDate": "Fev/20",
+                "finalDate": "Presente"
+            },
+            {
+                "title": "Desenvolvedora Flutter",
                 "company": "Blend IT - Cliente: CEABS Serviços",
                 "description": "Migrei um aplicativo mobile (Auto CEABS) de linguagens nativas para Flutter e subi essa nova versão para as lojas (avaliação anterior: 1.1, avaliação atual: 3.7). Criei outro aplicativo e agora estou mudando o layout do primeiro.",
                 "initialDate": "Jul/19",
-                "finalDate": "Presente"
+                "finalDate": "Fev/20"
             },
             {
                 "title": "Desenvolvedora Full Stack",
@@ -30,19 +37,20 @@
                 "description": "Desenvolvimento de um sistema de gerenciamento de aeroportos utilizando: .NET, C#, Web Api, Git, CI/CD, AngularJS (versão 1.3 and 1.5), Javascript, HTML5, CSS.",
                 "initialDate": "Mar-17",
                 "finalDate": "Fev/19"
-            },
-            {
-                "title": "Desenvolvedora Full Stack",
-                "company": "CINQ Technologies - Cliente: Fibra",
-                "description": "Um projeto de quatro meses para construir a nova arquitetura de um aplicativo existente. O aplicativo em si foi construído usando: Conceitos de SOA, Entity Server, Web API, .Net Entity Framework, AngularJS, jQuery, Bootstrap, Git",
-                "initialDate": "Nov-16",
-                "finalDate": "Mar-17"
             }
         ]
     },
     "education": {
         "sectionTitle": "Educação",
         "educationData": [
+            {
+                "institution": "Pontifícia Universidade Católica do Paraná (PUC-PR)",
+                "city": "Curitiba",
+                "country": "Brasil",
+                "initialDate": "Mai/20",
+                "finalDate": "2022",
+                "course": "Pós Graduação, App Development"
+            },
             {
                 "institution": "Universidade Castelo Branco (UCB)",
                 "city": "Rio de Janeiro",
