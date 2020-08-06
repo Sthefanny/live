@@ -1,3 +1,4 @@
+import 'package:curriculo/app/modules/home/models/cv_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -25,18 +26,37 @@ class _EducationWidgetState extends ModularState<EducationWidget, HomeController
               return TitleWidget(title: controller.cvModel?.education?.sectionTitle ?? '', icon: FontAwesomeIcons.graduationCap, hasMargin: false);
             });
           }),
-          buildContent(),
+          buildListItems(),
         ],
       ),
     );
   }
 
-  Widget buildContent() {
+  Widget buildListItems() {
+    return Observer(builder: (_) {
+      if (controller?.cvModel?.education?.educationData != null) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: getListItems(controller.cvModel.education.educationData),
+        );
+      }
+      return const SizedBox();
+    });
+  }
+
+  List<Widget> getListItems(List<EducationData> items) {
+    var listItems = List<Widget>();
+    items?.forEach((item) {
+      listItems.add(buildContent(item));
+    });
+
+    return listItems;
+  }
+
+  Widget buildContent(EducationData item) {
     return Stack(
       children: [
-        Observer(builder: (_) {
-          return Expanded(child: buildText());
-        }),
+        buildText(item),
         buildCircle(),
       ],
     );
@@ -56,9 +76,7 @@ class _EducationWidgetState extends ModularState<EducationWidget, HomeController
     );
   }
 
-  Widget buildText() {
-    var item = controller.cvModel?.education?.educationData != null ? controller.cvModel?.education?.educationData[0] : null;
-
+  Widget buildText(EducationData item) {
     return Container(
       margin: EdgeInsets.only(left: 16),
       padding: EdgeInsets.only(bottom: 20, left: 25, top: 10),
@@ -69,7 +87,7 @@ class _EducationWidgetState extends ModularState<EducationWidget, HomeController
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(item?.institution ?? '', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-          Text('${item?.city} - ${item?.country} - Graduada em ${item?.finalDate}', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+          getDateText(item),
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Text(item?.course ?? '', style: TextStyle(fontSize: 14)),
@@ -77,5 +95,13 @@ class _EducationWidgetState extends ModularState<EducationWidget, HomeController
         ],
       ),
     );
+  }
+
+  Widget getDateText(EducationData item) {
+    if (item?.finalDate != null && item.finalDate.isNotEmpty) {
+      return Text('${item?.city} - ${item?.country} - ${item?.finalDate}', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500));
+    } else {
+      return Text('${item?.city} - ${item?.country} - ${item?.initialDate}', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500));
+    }
   }
 }

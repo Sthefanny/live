@@ -73,10 +73,13 @@ class _ExperiencesWidgetState extends ModularState<ExperiencesWidget, HomeContro
 
   Widget buildListItems() {
     return Observer(builder: (_) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: getListItems(controller.cvModel.experiences.experiencesData),
-      );
+      if (controller?.cvModel?.experiences?.experiencesData != null) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: getListItems(controller.cvModel.experiences.experiencesData),
+        );
+      }
+      return const SizedBox();
     });
   }
 

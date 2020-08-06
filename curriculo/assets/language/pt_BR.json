@@ -20,7 +20,7 @@
             {
                 "title": "Desenvolvedora Flutter",
                 "company": "Blend IT - Cliente: CEABS Serviços",
-                "description": "Migrei um aplicativo mobile (Auto CEABS) de linguagens nativas para Flutter e subi essa nova versão para as lojas (avaliação anterior: 1.1, avaliação atual: 3.7). Criei outro aplicativo e agora estou mudando o layout do primeiro.",
+                "description": "Migrei um aplicativo mobile (Auto CEABS) de linguagens nativas para Flutter e subi essa nova versão para as lojas (avaliação anterior: 1.1, avaliação atual: 3.7). Criei outro aplicativo Flutter, mas não acompanhei a subida para produção, pois troquei de emprego.",
                 "initialDate": "Jul/19",
                 "finalDate": "Fev/20"
             },
@@ -47,8 +47,8 @@
                 "institution": "Pontifícia Universidade Católica do Paraná (PUC-PR)",
                 "city": "Curitiba",
                 "country": "Brasil",
-                "initialDate": "Mai/20",
-                "finalDate": "2022",
+                "initialDate": "Iniciado em Maio de 2020",
+                "finalDate": "",
                 "course": "Pós Graduação, App Development"
             },
             {
@@ -56,7 +56,7 @@
                 "city": "Rio de Janeiro",
                 "country": "Brasil",
                 "initialDate": "",
-                "finalDate": "Dezembro de 2010",
+                "finalDate": "Graduada em Dezembro de 2010",
                 "course": "Bacharelado em Sistemas de Informação"
             }
         ]

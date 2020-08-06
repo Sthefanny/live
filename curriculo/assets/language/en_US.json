@@ -20,7 +20,7 @@
             {
                 "title": "Flutter Developer",
                 "company": "Blend IT - Client: CEABS Serviços",
-                "description": "I migrated a native mobile application to Flutter and replaced it in the stores (rating before: 1.1, rating now: 3.7). I Created another flutter application and now I'm changing the first application's layout.",
+                "description": "I migrated a native mobile application to Flutter and replaced it in the stores (rating before: 1.1, rating now: 3.7). I Created another flutter application, but couldn't sent it to the stores, because I changed job.",
                 "initialDate": "Jul/19",
                 "finalDate": "Feb/20"
             },
@@ -33,7 +33,7 @@
             },
             {
                 "title": "Full Stack Developer",
-                "company": "CINQ Technologies - Cliente: Sita (Irlanda)",
+                "company": "CINQ Technologies - Client: Sita (Irlanda)",
                 "description": "Development of an airport management system using: .NET, C#, Web Api, Git, CI/CD, AngularJS (version 1.3 and 1.5), Javascript, HTML5, CSS.",
                 "initialDate": "May/17",
                 "finalDate": "Feb/19"
@@ -47,8 +47,8 @@
                 "institution": "Pontifícia Universidade Católica do Paraná (PUC-PR)",
                 "city": "Curitiba",
                 "country": "Brazil",
-                "initialDate": "May/20",
-                "finalDate": "2022",
+                "initialDate": "Started May 2020",
+                "finalDate": "",
                 "course": "Postgraduate studies, App Development"
             },
             {

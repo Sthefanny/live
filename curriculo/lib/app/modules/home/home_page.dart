@@ -36,8 +36,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       body: SafeArea(
         child: Stack(
           children: [
-            buildButtons(),
             buildContent(),
+            buildButtons(),
           ],
         ),
       ),
@@ -70,9 +70,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   }
 
   Widget buildContent() {
-    var _pageSize = _size.width * .5;
-    var _leftColumn = _pageSize * .6 - 40;
-    var _rightColumn = _pageSize * .4 - 60;
+    var _pageMinSize = 900;
+    var _pageSize = _size.width * .5 >= _pageMinSize ? _size.width * .5 : _pageMinSize;
+    var _leftMinSize = 500;
+    var _rightMinSize = 300;
+    var _leftColumn = _pageSize * .6 - 40 >= _leftMinSize ? _pageSize * .6 - 40 : _leftMinSize;
+    var _rightColumn = _pageSize * .4 - 60 >= _rightMinSize ? _pageSize * .4 - 60 : _rightMinSize;
 
     return Center(
       child: Container(

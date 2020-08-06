@@ -32,10 +32,13 @@ class _LanguagesWidgetState extends ModularState<LanguagesWidget, HomeController
 
   Widget buildListItems() {
     return Observer(builder: (_) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: getListItems(controller.cvModel.languages.languagesData),
-      );
+      if (controller?.cvModel?.languages?.languagesData != null) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: getListItems(controller.cvModel.languages.languagesData),
+        );
+      }
+      return const SizedBox();
     });
   }
 

@@ -36,6 +36,7 @@ vars:
     clean: flutter clean
     get: flutter pub get
     runner: flutter pub run build_runner
+    channel: flutter channel beta --force
 scripts: 
-    build: $clean & $get & $runner build --delete-conflicting-outputs
-    watch: $clean & $get & $runner watch --delete-conflicting-outputs
+    build: $channel & $clean & $get & $runner build --delete-conflicting-outputs
+    watch: $channel & $clean & $get & $runner watch --delete-conflicting-outputs
