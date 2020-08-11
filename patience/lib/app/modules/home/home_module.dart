@@ -2,11 +2,13 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'home_controller.dart';
 import 'home_page.dart';
+import 'home_store.dart';
 
 class HomeModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => HomeController(i.get())),
+        Bind((i) => HomeStore()),
+        Bind((i) => HomeController(i.get(), i.get())),
       ];
 
   @override

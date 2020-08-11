@@ -6,83 +6,37 @@ part of 'home_controller.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
-  final _$deckIdAtom = Atom(name: '_HomeControllerBase.deckId');
+  Computed<String> _$deckIdComputed;
 
   @override
-  String get deckId {
-    _$deckIdAtom.reportRead();
-    return super.deckId;
-  }
+  String get deckId =>
+      (_$deckIdComputed ??= Computed<String>(() => super.deckId,
+              name: '_HomeControllerBase.deckId'))
+          .value;
+  Computed<ObservableList<CardModel>> _$deckComputed;
 
   @override
-  set deckId(String value) {
-    _$deckIdAtom.reportWrite(value, super.deckId, () {
-      super.deckId = value;
-    });
-  }
-
-  final _$deckAtom = Atom(name: '_HomeControllerBase.deck');
+  ObservableList<CardModel> get deck =>
+      (_$deckComputed ??= Computed<ObservableList<CardModel>>(() => super.deck,
+              name: '_HomeControllerBase.deck'))
+          .value;
+  Computed<ObservableList<CardsModel>> _$tableCardsComputed;
 
   @override
-  List<CardModel> get deck {
-    _$deckAtom.reportRead();
-    return super.deck;
-  }
+  ObservableList<CardsModel> get tableCards => (_$tableCardsComputed ??=
+          Computed<ObservableList<CardsModel>>(() => super.tableCards,
+              name: '_HomeControllerBase.tableCards'))
+      .value;
+  Computed<ObservableList<CardModel>> _$showedItemsComputed;
 
   @override
-  set deck(List<CardModel> value) {
-    _$deckAtom.reportWrite(value, super.deck, () {
-      super.deck = value;
-    });
-  }
-
-  final _$tableCardsAtom = Atom(name: '_HomeControllerBase.tableCards');
-
-  @override
-  List<CardsModel> get tableCards {
-    _$tableCardsAtom.reportRead();
-    return super.tableCards;
-  }
-
-  @override
-  set tableCards(List<CardsModel> value) {
-    _$tableCardsAtom.reportWrite(value, super.tableCards, () {
-      super.tableCards = value;
-    });
-  }
-
-  final _$sentCardsAtom = Atom(name: '_HomeControllerBase.sentCards');
-
-  @override
-  List<CardsModel> get sentCards {
-    _$sentCardsAtom.reportRead();
-    return super.sentCards;
-  }
-
-  @override
-  set sentCards(List<CardsModel> value) {
-    _$sentCardsAtom.reportWrite(value, super.sentCards, () {
-      super.sentCards = value;
-    });
-  }
-
-  final _$showedItemsAtom = Atom(name: '_HomeControllerBase.showedItems');
-
-  @override
-  List<CardModel> get showedItems {
-    _$showedItemsAtom.reportRead();
-    return super.showedItems;
-  }
-
-  @override
-  set showedItems(List<CardModel> value) {
-    _$showedItemsAtom.reportWrite(value, super.showedItems, () {
-      super.showedItems = value;
-    });
-  }
+  ObservableList<CardModel> get showedItems => (_$showedItemsComputed ??=
+          Computed<ObservableList<CardModel>>(() => super.showedItems,
+              name: '_HomeControllerBase.showedItems'))
+      .value;
 
   final _$getDecksAsyncAction = AsyncAction('_HomeControllerBase.getDecks');
 
@@ -113,11 +67,55 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  dynamic removeLastFromDeck() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.removeLastFromDeck');
+    try {
+      return super.removeLastFromDeck();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setDeckId(dynamic value) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.setDeckId');
     try {
       return super.setDeckId(value);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setTableCards(dynamic value) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setTableCards');
+    try {
+      return super.setTableCards(value);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setShowedItems(dynamic value) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setShowedItems');
+    try {
+      return super.setShowedItems(value);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic clearShowedItems() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.clearShowedItems');
+    try {
+      return super.clearShowedItems();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -162,7 +160,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
 deckId: ${deckId},
 deck: ${deck},
 tableCards: ${tableCards},
-sentCards: ${sentCards},
 showedItems: ${showedItems}
     ''';
   }
