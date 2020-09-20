@@ -2,8 +2,8 @@
 
 A Flutter project.
 
-Pokedex create in live at [twitch/stelbyrn](https://www.twitch.tv/stelbyrn)
+Pokedex created in live at [twitch/stelbyrn](https://www.twitch.tv/stelbyrn)
 
-## Android Screenshots
+## Screenshots
 
 ![Arduino gif](screenshots/arduino.gif)
