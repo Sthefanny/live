@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'app_controller.dart';
@@ -23,7 +23,7 @@ class AppModule extends MainModule {
       ];
 
   @override
-  Widget get bootstrap => AppWidget();
+  material.Widget get bootstrap => AppWidget();
 
   static Inject get to => Inject<AppModule>.of();
 }
